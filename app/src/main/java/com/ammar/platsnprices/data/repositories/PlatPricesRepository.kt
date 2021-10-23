@@ -28,14 +28,23 @@ class PlatPricesRepository @Inject constructor(
             dbQuery = { saleDao.getAllByRegion(region) },
             shouldFetch = {
                 val salesLastUpdated = salesLastUpdatedRepository.getByRegion(region)
-                salesLastUpdated == null || Duration.between(LocalDateTime.now(), salesLastUpdated.lastUpdatedOn).toHours() > 12
+                salesLastUpdated == null || Duration.between(LocalDateTime.now(), salesLastUpdated.lastUpdatedOn).abs().toHours() > 12
             },
             fetch = {
                 platPricesService.fetchSales(region = region.code)
             },
             saveFetchResult = {
                 salesLastUpdatedRepository.insertOrUpdate(region, LocalDateTime.now())
-                saleDao.insertAll(it.sales.map { networkSale -> networkSale.toSale(region = region) })
+                val inserts = mutableListOf<NetworkSale>()
+                // Filter out Network sales already in db
+                for (networkSale in it.sales) {
+                    val id = networkSale.id ?: continue
+                    val sale = saleDao.getBySaleId(id)
+                    if (sale == null) {
+                        inserts.add(networkSale)
+                    }
+                }
+                saleDao.insertAll(inserts.map { networkSale -> networkSale.toSale(region = region) })
             }
         )
     }

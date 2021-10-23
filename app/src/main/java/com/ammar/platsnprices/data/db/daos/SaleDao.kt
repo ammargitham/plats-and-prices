@@ -16,10 +16,10 @@ interface SaleDao {
     fun getAllByRegion(region: Region): Flow<List<Sale>>
 
     @Query("SELECT * FROM sales WHERE id = :id ORDER BY start_time")
-    fun getById(id: Long): Flow<List<Sale>>
+    fun getById(id: Long): Flow<Sale>
 
     @Query("SELECT * FROM sales WHERE sale_id = :saleId ORDER BY start_time")
-    fun getBySaleId(saleId: Long): Flow<List<Sale>>
+    suspend fun getBySaleId(saleId: Long): Sale?
 
     @Transaction
     @Query("SELECT * FROM sales WHERE id = :id")

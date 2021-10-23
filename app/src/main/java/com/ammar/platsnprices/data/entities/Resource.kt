@@ -18,7 +18,7 @@ inline fun <ResultType, NetworkResponseType> networkBoundResource(
     crossinline dbQuery: () -> Flow<ResultType>,
     crossinline fetch: suspend (ResultType) -> NetworkResponseType,
     crossinline saveFetchResult: suspend (NetworkResponseType) -> Unit,
-    crossinline onFetchFailed: (Throwable) -> Unit = { Unit },
+    crossinline onFetchFailed: (Throwable) -> Unit = {},
     crossinline shouldFetch: suspend (ResultType) -> Boolean = { true }
 ) = flow {
     emit(Resource.Loading(null))

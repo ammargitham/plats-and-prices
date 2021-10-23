@@ -9,16 +9,16 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface SaleDao {
 
-    @Query("SELECT * FROM sales ORDER BY start_time")
+    @Query("SELECT * FROM sales ORDER BY end_time < (strftime('%s', 'now') * 1000), start_time")
     fun getAll(): Flow<List<Sale>>
 
-    @Query("SELECT * FROM sales WHERE region = :region ORDER BY start_time")
+    @Query("SELECT * FROM sales WHERE region = :region ORDER BY end_time < (strftime('%s', 'now') * 1000), start_time")
     fun getAllByRegion(region: Region): Flow<List<Sale>>
 
-    @Query("SELECT * FROM sales WHERE id = :id ORDER BY start_time")
+    @Query("SELECT * FROM sales WHERE id = :id")
     fun getById(id: Long): Flow<Sale>
 
-    @Query("SELECT * FROM sales WHERE sale_id = :saleId ORDER BY start_time")
+    @Query("SELECT * FROM sales WHERE sale_id = :saleId")
     suspend fun getBySaleId(saleId: Long): Sale?
 
     @Transaction

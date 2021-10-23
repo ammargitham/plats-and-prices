@@ -1,0 +1,27 @@
+def readProperties = {
+    def propsFile = "api.properties"
+    def apiProps = [:]
+    println("Reading api props from: $propsFile")
+    try {
+        new File("$project.rootDir/$propsFile").eachLine { line ->
+            def matcher = (line =~ /^\s*(?:export\s+|)([\w\d.\-_]+)\s*=\s*['"]?(.*?)?['"]?\s*$/)
+            if (matcher.getCount() == 1 && matcher[0].size() == 3) {
+                apiProps.put(matcher[0][1], matcher[0][2])
+            }
+        }
+    } catch (FileNotFoundException ignored) {
+        println("\nWARNING: Missing api.properties file")
+    }
+    project.ext.set("apiProps", apiProps)
+}
+
+readProperties()
+
+android {
+    defaultConfig {
+        project.apiProps.each { k, v ->
+            // println("INFO: property -> $k: $v ")
+            buildConfigField "String", k, "\"$v\""
+        }
+    }
+}

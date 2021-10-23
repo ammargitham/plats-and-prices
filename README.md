@@ -14,7 +14,6 @@ listed [here](https://platprices.com/developers.php).
 Once you have obtained the API key. Create a file named `api.properties` in the root folder and add the following property:
 
 ```properties
-# suppress inspection "UnusedProperty" for whole file
 PLAT_PRICES_API_KEY=API_KEY
 ```
 

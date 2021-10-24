@@ -30,6 +30,7 @@ import com.ammar.platsnprices.ui.composables.BackHandler
 import com.ammar.platsnprices.ui.controllers.*
 import com.ammar.platsnprices.ui.theme.PlatsNPricesTheme
 import com.ammar.platsnprices.utils.LocalBackPressedDispatcher
+import com.ammar.platsnprices.work.DbCleanupWorker
 import com.google.accompanist.insets.ui.Scaffold
 import com.google.accompanist.insets.ui.TopAppBar
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -37,8 +38,10 @@ import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
+@ExperimentalCoroutinesApi
 @ExperimentalComposeUiApi
 @ExperimentalUnitApi
 @ExperimentalAnimationApi
@@ -94,6 +97,7 @@ class MainActivity : ComponentActivity() {
             }
         }
         setContentView(composeView)
+        DbCleanupWorker.enqueue(this)
     }
 }
 
@@ -220,6 +224,7 @@ private fun MainScaffold(
     )
 }
 
+@ExperimentalCoroutinesApi
 @ExperimentalComposeUiApi
 @ExperimentalUnitApi
 @ExperimentalAnimationApi

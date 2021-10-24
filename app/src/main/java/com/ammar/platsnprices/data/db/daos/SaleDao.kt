@@ -15,6 +15,9 @@ interface SaleDao {
     @Query("SELECT * FROM sales WHERE region = :region ORDER BY end_time < (strftime('%s', 'now') * 1000), start_time")
     fun getAllByRegion(region: Region): Flow<List<Sale>>
 
+    @Query("SELECT id FROM sales WHERE end_time < (strftime('%s', 'now') * 1000)")
+    suspend fun getExpiredSaleIds(): List<Long>
+
     @Query("SELECT * FROM sales WHERE id = :id")
     fun getById(id: Long): Flow<Sale>
 
@@ -43,6 +46,9 @@ interface SaleDao {
 
     @Query("DELETE FROM sales where id = :id")
     suspend fun deleteById(id: Long)
+
+    @Query("DELETE FROM sales where id in (:ids)")
+    suspend fun deleteByIds(ids: List<Long>)
 
     @Query("DELETE FROM sales where sale_id = :saleId")
     suspend fun deleteBySaleId(saleId: Long)

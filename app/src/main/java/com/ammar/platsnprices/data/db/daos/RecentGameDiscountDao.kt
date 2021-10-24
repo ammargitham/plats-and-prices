@@ -15,4 +15,7 @@ interface RecentGameDiscountDao {
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertAll(recentGameDiscounts: List<RecentGameDiscount>)
+
+    @Query("DELETE FROM sales")
+    suspend fun deleteAll()
 }

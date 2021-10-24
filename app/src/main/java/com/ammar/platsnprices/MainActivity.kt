@@ -137,11 +137,14 @@ fun MainContent(
     }
 
     PlatsNPricesTheme {
-        val useDarkIcons = MaterialTheme.colors.isLight
+        // val useDarkIcons = MaterialTheme.colors.isLight
         val systemBarsColor = MaterialTheme.colors.primarySurface
 
         SideEffect {
-            systemUiController.setSystemBarsColor(systemBarsColor, darkIcons = useDarkIcons)
+            systemUiController.setSystemBarsColor(
+                color = systemBarsColor,
+                darkIcons = false
+            )
         }
 
         ModalBottomSheetLayout(

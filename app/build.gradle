@@ -122,7 +122,7 @@ dependencies {
 
     // Moshi
     implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
-    ksp 'dev.zacsweers.moshix:moshi-ksp:0.14.0'
+    ksp 'dev.zacsweers.moshix:moshi-ksp:0.14.1'
 
     // OkHttp
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'

@@ -5,7 +5,7 @@ buildscript {
         coil_version = '2.0.0-alpha01'
         compose_version = '1.1.0-alpha06'
         exoplayer_version = '2.15.1'
-        hilt_version = '2.38.1'
+        hilt_version = '2.39.1'
         hilt_androidx_version = '1.0.0'
         kotlin_version = '1.5.31'
         moshi_version = '1.12.0'

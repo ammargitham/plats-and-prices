@@ -2,8 +2,17 @@ package com.ammar.platsnprices.ui.screens.sale
 
 import android.content.res.Configuration
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyGridState
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
@@ -15,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import com.ammar.platsnprices.data.entities.Discount
 import com.ammar.platsnprices.data.entities.GameDiscount
-import com.ammar.platsnprices.ui.composables.discount.DiscountCard
 import com.ammar.platsnprices.ui.composables.discount.DiscountTile
 import com.ammar.platsnprices.ui.theme.PlatsNPricesTheme
 import java.time.LocalDateTime
@@ -36,7 +44,7 @@ fun SaleContent(
     onListModeChange: (ListMode) -> Unit = {},
     onDiscountClick: (Discount) -> Unit = {},
 ) {
-    val listState = rememberLazyListState()
+    val listState = rememberLazyGridState()
 
     LaunchedEffect(sort, filters.version, filters.type) {
         // Scroll to top on filters or sorting change
@@ -71,41 +79,43 @@ fun SaleContent(
                 onSortClick = onSortClick,
                 onFilterClick = onFilterClick,
             )
-            when (listMode) {
-                ListMode.LIST -> SaleContentList(listState, discounts, onDiscountClick)
-                ListMode.GRID -> SaleContentGrid(listState, discounts, onDiscountClick)
-            }
+            SaleContentGrid(listMode, listState, discounts, onDiscountClick)
+            // when (listMode) {
+            //     ListMode.LIST -> SaleContentList(listState, discounts, onDiscountClick)
+            //     ListMode.GRID ->
+            // }
         }
     }
 }
 
-@ExperimentalCoilApi
-@Composable
-private fun SaleContentList(
-    state: LazyListState,
-    discounts: List<Discount>,
-    onDiscountClick: (Discount) -> Unit = {},
-) {
-    LazyColumn(
-        state = state,
-        contentPadding = PaddingValues(start = 8.dp, end = 8.dp, bottom = 8.dp, top = 0.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        items(discounts) { DiscountCard(it) { onDiscountClick(it) } }
-    }
-}
+// @ExperimentalCoilApi
+// @Composable
+// private fun SaleContentList(
+//     state: LazyListState,
+//     discounts: List<Discount>,
+//     onDiscountClick: (Discount) -> Unit = {},
+// ) {
+//     LazyColumn(
+//         state = state,
+//         contentPadding = PaddingValues(start = 8.dp, end = 8.dp, bottom = 8.dp, top = 0.dp),
+//         verticalArrangement = Arrangement.spacedBy(8.dp)
+//     ) {
+//         items(discounts) { DiscountCard(it) { onDiscountClick(it) } }
+//     }
+// }
 
 @ExperimentalCoilApi
 @ExperimentalFoundationApi
 @Composable
 fun SaleContentGrid(
-    state: LazyListState,
+    listMode: ListMode = ListMode.LIST,
+    state: LazyGridState,
     discounts: List<Discount>,
     onDiscountClick: (Discount) -> Unit = {},
 ) {
     LazyVerticalGrid(
         state = state,
-        cells = GridCells.Adaptive(minSize = 150.dp),
+        columns = if (listMode == ListMode.LIST) GridCells.Fixed(1) else GridCells.Adaptive(minSize = 150.dp),
         contentPadding = PaddingValues(start = 8.dp, end = 8.dp, bottom = 8.dp, top = 0.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -143,6 +153,7 @@ private val previewGameDiscounts = List(5) {
 @ExperimentalFoundationApi
 @ExperimentalCoilApi
 @Preview(showSystemUi = true)
+@Preview(showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewSaleContent() {
     PlatsNPricesTheme {
@@ -153,56 +164,24 @@ fun PreviewSaleContent() {
     }
 }
 
-@ExperimentalMaterialApi
-@ExperimentalFoundationApi
-@ExperimentalCoilApi
-@Preview(showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-fun PreviewSaleContentDark() {
-    PlatsNPricesTheme {
-        SaleContent(
-            discounts = previewGameDiscounts,
-            listMode = ListMode.LIST,
-        )
-    }
-}
-
 @ExperimentalFoundationApi
 @ExperimentalCoilApi
 @Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewSaleContentList() {
     PlatsNPricesTheme {
-        SaleContentList(rememberLazyListState(), previewGameDiscounts)
-    }
-}
-
-@ExperimentalFoundationApi
-@ExperimentalCoilApi
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-fun PreviewSaleContentListDark() {
-    PlatsNPricesTheme {
-        SaleContentList(rememberLazyListState(), previewGameDiscounts)
+        SaleContentGrid(ListMode.LIST, rememberLazyGridState(), previewGameDiscounts)
     }
 }
 
 @ExperimentalFoundationApi
 @ExperimentalCoilApi
 @Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewSaleContentGrid() {
     PlatsNPricesTheme {
-        SaleContentGrid(rememberLazyListState(), previewGameDiscounts)
-    }
-}
-
-@ExperimentalFoundationApi
-@ExperimentalCoilApi
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-fun PreviewSaleContentGridDark() {
-    PlatsNPricesTheme {
-        SaleContentGrid(rememberLazyListState(), previewGameDiscounts)
+        SaleContentGrid(ListMode.GRID, rememberLazyGridState(), previewGameDiscounts)
     }
 }

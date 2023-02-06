@@ -5,17 +5,17 @@ import com.ammar.platsnprices.utils.TAG
 import com.ammar.platsnprices.utils.getDiscountPct
 import com.ammar.platsnprices.utils.pnpDateFormatter
 import com.ammar.platsnprices.utils.pnpDateTimeFormatter
+import com.squareup.moshi.FromJson
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import com.squareup.moshi.JsonDataException
 import com.squareup.moshi.JsonQualifier
-import com.squareup.moshi.FromJson
-
-import com.squareup.moshi.ToJson
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.ToJson
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeParseException
-import java.util.*
+import java.util.Locale
 
 @JsonClass(generateAdapter = true)
 data class Product(
@@ -244,6 +244,11 @@ internal class ProductStringListAdapter {
     fun fromJson(arrayStr: String): List<String> {
         if (arrayStr.isBlank()) return emptyList()
         val moshi = Moshi.Builder().build()
-        return moshi.adapter(List::class.java).fromJson(arrayStr) as List<String>
+        return try {
+            moshi.adapter(List::class.java).fromJson(arrayStr) as List<String>
+        } catch (e: JsonDataException) {
+            val map = moshi.adapter(Map::class.java).fromJson(arrayStr) as Map<String, String>
+            map.values.toList()
+        }
     }
 }

@@ -1,10 +1,21 @@
 package com.ammar.platsnprices.data.entities
 
-import androidx.room.*
+import androidx.room.ColumnInfo
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.Relation
 import com.ammar.platsnprices.utils.getDiscountPct
 import com.ammar.platsnprices.utils.parsePlatPricesDateTime
-import com.squareup.moshi.*
+import com.squareup.moshi.FromJson
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.JsonClass
+import com.squareup.moshi.JsonQualifier
+import com.squareup.moshi.JsonReader
 import com.squareup.moshi.JsonReader.Token.BEGIN_OBJECT
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.ToJson
 import java.time.LocalDateTime
 
 @JsonClass(generateAdapter = true)
@@ -203,7 +214,7 @@ data class NetworkDlcDiscount(
     @Json(name = "formattedSalePrice") val formattedSalePrice: String,
     @Json(name = "formattedPlusPrice") val formattedPlusPrice: String,
     @Json(name = "PlatPricesURL") val platPricesUrl: String,
-    @Json(name = "ParentGame") val parentGame: String,
+    @Json(name = "ParentGame") val parentGame: String?,
 ) {
     fun toDlcDiscount(dbId: Long = 0, saleDbId: Long) = DlcDiscount(
         id = dbId,
@@ -288,7 +299,7 @@ data class DlcDiscount(
     @ColumnInfo(name = "formatted_sale_price") override val formattedSalePrice: String,
     @ColumnInfo(name = "formatted_plus_price") override val formattedPlusPrice: String,
     @ColumnInfo(name = "plat_prices_url") override val platPricesUrl: String,
-    @ColumnInfo(name = "parent_game") val parentGame: String,
+    @ColumnInfo(name = "parent_game") val parentGame: String?,
 ) : Discount(
     ppId = ppId,
     saleDbId = saleDbId,

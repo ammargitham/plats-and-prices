@@ -1,17 +1,27 @@
 package com.ammar.platsnprices
 
-import androidx.compose.animation.*
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.unit.ExperimentalUnitApi
-import androidx.navigation.*
+import androidx.navigation.NamedNavArgument
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavController
+import androidx.navigation.NavDeepLink
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import coil.annotation.ExperimentalCoilApi
-import com.ammar.platsnprices.ui.controllers.ModalBottomSheetController
 import com.ammar.platsnprices.ui.controllers.ExtSystemUIController
+import com.ammar.platsnprices.ui.controllers.ModalBottomSheetController
 import com.ammar.platsnprices.ui.controllers.ToolbarController
 import com.ammar.platsnprices.ui.screens.home.Home
 import com.ammar.platsnprices.ui.screens.imagespager.ImagesPager
@@ -26,22 +36,22 @@ sealed class Route(
     val route: String,
     val arguments: List<NamedNavArgument> = emptyList(),
     val deepLinks: List<NavDeepLink> = emptyList(),
-    val enterTransition: AnimatedContentScope<String>.(initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterTransition = { _, _ ->
+    val enterTransition: AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition = {
         fadeIn(
             animationSpec = tween(800)
         )
     },
-    val exitTransition: AnimatedContentScope<String>.(initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitTransition = { _, _ ->
+    val exitTransition: AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition = {
         fadeOut(
             animationSpec = tween(800)
         )
     },
-    val popEnterTransition: AnimatedContentScope<String>.(initial: NavBackStackEntry, target: NavBackStackEntry) -> EnterTransition = { _, _ ->
+    val popEnterTransition: AnimatedContentScope<NavBackStackEntry>.() -> EnterTransition = {
         fadeIn(
             animationSpec = tween(800)
         )
     },
-    val popExitTransition: AnimatedContentScope<String>.(initial: NavBackStackEntry, target: NavBackStackEntry) -> ExitTransition = { _, _ ->
+    val popExitTransition: AnimatedContentScope<NavBackStackEntry>.() -> ExitTransition = {
         fadeOut(
             animationSpec = tween(800)
         )

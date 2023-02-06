@@ -1,6 +1,10 @@
 package com.ammar.platsnprices.data.db.daos
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Update
 import com.ammar.platsnprices.data.entities.Region
 import com.ammar.platsnprices.data.entities.SalesLastUpdated
 import kotlinx.coroutines.flow.Flow

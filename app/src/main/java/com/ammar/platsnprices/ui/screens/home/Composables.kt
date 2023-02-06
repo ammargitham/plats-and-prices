@@ -5,18 +5,39 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.LocalContentAlpha
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.Search
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,14 +54,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import com.ammar.platsnprices.R
 import com.ammar.platsnprices.data.entities.RecentGameDiscount
 import com.ammar.platsnprices.data.entities.Region
 import com.ammar.platsnprices.data.entities.Sale
 import com.ammar.platsnprices.ui.composables.discount.DiscountPrice
 import com.ammar.platsnprices.ui.theme.PlatsNPricesTheme
-import com.ammar.platsnprices.utils.*
+import com.ammar.platsnprices.utils.DateTimeDiff
+import com.ammar.platsnprices.utils.dpToPx
+import com.ammar.platsnprices.utils.getDateTimeDiff
+import com.ammar.platsnprices.utils.getFlag
+import com.ammar.platsnprices.utils.pxToDp
+import com.ammar.platsnprices.utils.trimAll
 import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.material.fade
 import com.google.accompanist.placeholder.material.placeholder
@@ -180,12 +207,12 @@ fun Sale(
                         visible = loading,
                         highlight = PlaceholderHighlight.fade(),
                     ),
-                painter = rememberImagePainter(
-                    data = sale?.imgUrl ?: R.drawable.image_placeholder,
-                    builder = {
-                        crossfade(true)
-                        placeholder(R.drawable.image_placeholder)
-                    }
+                painter = rememberAsyncImagePainter(
+                    ImageRequest.Builder(LocalContext.current).data(data = sale?.imgUrl ?: R.drawable.image_placeholder)
+                        .apply(block = fun ImageRequest.Builder.() {
+                            crossfade(true)
+                            placeholder(R.drawable.image_placeholder)
+                        }).build()
                 ),
                 contentDescription = null
             )
@@ -341,12 +368,12 @@ fun RecentDiscountContent(
                         visible = loading,
                         highlight = PlaceholderHighlight.fade(),
                     ),
-                painter = rememberImagePainter(
-                    data = discount?.imgUrl ?: R.drawable.image_placeholder,
-                    builder = {
-                        crossfade(true)
-                        placeholder(R.drawable.image_placeholder)
-                    }
+                painter = rememberAsyncImagePainter(
+                    ImageRequest.Builder(LocalContext.current).data(data = discount?.imgUrl ?: R.drawable.image_placeholder)
+                        .apply(block = fun ImageRequest.Builder.() {
+                            crossfade(true)
+                            placeholder(R.drawable.image_placeholder)
+                        }).build()
                 ),
                 contentDescription = null
             )
@@ -565,12 +592,11 @@ private fun RegionList(
                 ) {
                     Image(
                         modifier = Modifier.size(32.dp),
-                        painter = rememberImagePainter(
-                            data = getFlag(it.code),
-                            builder = {
+                        painter = rememberAsyncImagePainter(
+                            ImageRequest.Builder(LocalContext.current).data(data = getFlag(it.code)).apply(block = fun ImageRequest.Builder.() {
                                 crossfade(true)
                                 placeholder(R.drawable.image_placeholder)
-                            }
+                            }).build()
                         ),
                         contentDescription = "${stringResource(it.labelResId)} ${stringResource(R.string.flag)}",
                     )

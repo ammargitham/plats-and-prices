@@ -7,10 +7,20 @@ import android.widget.TextView
 import androidx.annotation.StyleRes
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedButton
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -244,30 +254,26 @@ fun <T> ButtonToggleGroup(
 private val tempToggleOptions: List<ButtonToggleOption<String>> = listOf(
     ButtonToggleOption(
         "First",
-        {
-            Icon(painter = painterResource(R.drawable.ic_round_view_list_24), contentDescription = "")
-            Text(text = "First")
-        },
-    ),
+    ) {
+        Icon(painter = painterResource(R.drawable.ic_round_view_list_24), contentDescription = "")
+        Text(text = "First")
+    },
     ButtonToggleOption(
         "Second",
-        {
-            Icon(painter = painterResource(R.drawable.ic_round_view_list_24), contentDescription = "")
-            Text(text = "Second")
-        },
-    ),
+    ) {
+        Icon(painter = painterResource(R.drawable.ic_round_view_list_24), contentDescription = "")
+        Text(text = "Second")
+    },
     ButtonToggleOption(
         "Third",
-        {
-            Icon(painter = painterResource(R.drawable.ic_round_view_list_24), contentDescription = "")
-        },
-    ),
+    ) {
+        Icon(painter = painterResource(R.drawable.ic_round_view_list_24), contentDescription = "")
+    },
     ButtonToggleOption(
         "Fourth",
-        {
-            Icon(painter = painterResource(R.drawable.ic_round_view_list_24), contentDescription = "")
-        },
-    )
+    ) {
+        Icon(painter = painterResource(R.drawable.ic_round_view_list_24), contentDescription = "")
+    }
 )
 
 @Composable

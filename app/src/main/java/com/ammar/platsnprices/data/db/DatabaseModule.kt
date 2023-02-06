@@ -2,7 +2,11 @@ package com.ammar.platsnprices.data.db
 
 import android.content.Context
 import androidx.room.Room
-import com.ammar.platsnprices.data.db.daos.*
+import com.ammar.platsnprices.data.db.daos.DlcDiscountDao
+import com.ammar.platsnprices.data.db.daos.GameDiscountDao
+import com.ammar.platsnprices.data.db.daos.RecentGameDiscountDao
+import com.ammar.platsnprices.data.db.daos.SaleDao
+import com.ammar.platsnprices.data.db.daos.SalesLastUpdatedDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

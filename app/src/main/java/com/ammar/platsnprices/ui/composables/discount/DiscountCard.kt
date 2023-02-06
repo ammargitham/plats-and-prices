@@ -3,20 +3,37 @@ package com.ammar.platsnprices.ui.composables.discount
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.LocalContentAlpha
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import com.ammar.platsnprices.R
 import com.ammar.platsnprices.data.entities.Discount
 import com.ammar.platsnprices.data.entities.GameDiscount
@@ -34,13 +51,11 @@ fun DiscountCard(
     val surfaceColor = MaterialTheme.colors.surface
     val cardColor by remember { mutableStateOf(surfaceColor) }
     val textColor by remember { mutableStateOf(Color.Unspecified) }
-    val painter = rememberImagePainter(
-        data = discount.imgUrl,
-        builder = {
+    val painter =
+        rememberAsyncImagePainter(ImageRequest.Builder(LocalContext.current).data(data = discount.imgUrl).apply(block = fun ImageRequest.Builder.() {
             crossfade(true)
             placeholder(R.drawable.image_placeholder)
-        }
-    )
+        }).build())
 
     Surface(
         modifier = Modifier

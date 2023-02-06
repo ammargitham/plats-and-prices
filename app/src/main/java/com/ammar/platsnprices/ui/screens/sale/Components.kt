@@ -4,10 +4,25 @@ import android.content.Context
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.Divider
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.material.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -34,23 +49,21 @@ internal fun OptionsRow(
     val listModeOptions = remember {
         listOf(
             ButtonToggleOption(
-                ListMode.LIST,
-                {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_round_view_list_24),
-                        contentDescription = stringResource(R.string.list)
-                    )
-                }
-            ),
+                ListMode.LIST
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_round_view_list_24),
+                    contentDescription = stringResource(R.string.list)
+                )
+            },
             ButtonToggleOption(
-                ListMode.GRID,
-                {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_round_grid_view_24),
-                        contentDescription = stringResource(R.string.grid)
-                    )
-                }
-            ),
+                ListMode.GRID
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_round_grid_view_24),
+                    contentDescription = stringResource(R.string.grid)
+                )
+            },
         )
     }
 
@@ -173,45 +186,39 @@ internal fun FilterOptions(
     val typeOptions = remember {
         listOf(
             ButtonToggleOption(
-                Type.ALL,
-                {
-                    Text(text = stringResource(R.string.all))
-                }
-            ),
+                Type.ALL
+            ) {
+                Text(text = stringResource(R.string.all))
+            },
             ButtonToggleOption(
-                Type.GAME,
-                {
-                    Text(text = stringResource(R.string.games))
-                }
-            ),
+                Type.GAME
+            ) {
+                Text(text = stringResource(R.string.games))
+            },
             ButtonToggleOption(
-                Type.DLC,
-                {
-                    Text(text = "DLC")
-                }
-            )
+                Type.DLC
+            ) {
+                Text(text = "DLC")
+            }
         )
     }
     val versionOptions = remember {
         listOf(
             ButtonToggleOption(
-                Version.ALL,
-                {
-                    Text(text = stringResource(R.string.all))
-                }
-            ),
+                Version.ALL
+            ) {
+                Text(text = stringResource(R.string.all))
+            },
             ButtonToggleOption(
-                Version.PS4,
-                {
-                    Text(text = "PS4")
-                }
-            ),
+                Version.PS4
+            ) {
+                Text(text = "PS4")
+            },
             ButtonToggleOption(
-                Version.PS5,
-                {
-                    Text(text = "PS5")
-                }
-            )
+                Version.PS5
+            ) {
+                Text(text = "PS5")
+            }
         )
     }
     var versionEnabled = remember { filters.type != Type.DLC }
@@ -306,23 +313,20 @@ internal fun SortOptions(
     val sortOptions = remember {
         listOf(
             ButtonToggleOption(
-                Sort.NAME,
-                {
-                    Text(text = stringResource(R.string.name))
-                }
-            ),
+                Sort.NAME
+            ) {
+                Text(text = stringResource(R.string.name))
+            },
             ButtonToggleOption(
-                Sort.SALE_PRICE,
-                {
-                    Text(text = stringResource(R.string.price))
-                }
-            ),
+                Sort.SALE_PRICE
+            ) {
+                Text(text = stringResource(R.string.price))
+            },
             ButtonToggleOption(
-                Sort.DISCOUNT_PCT,
-                {
-                    Text(text = stringResource(R.string.discount_pct))
-                }
-            )
+                Sort.DISCOUNT_PCT
+            ) {
+                Text(text = stringResource(R.string.discount_pct))
+            }
         )
     }
     var localSort by remember { mutableStateOf(sort) }

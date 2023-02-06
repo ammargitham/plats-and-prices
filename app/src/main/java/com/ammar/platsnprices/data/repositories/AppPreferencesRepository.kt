@@ -8,7 +8,11 @@ import androidx.datastore.preferences.core.emptyPreferences
 import com.ammar.platsnprices.data.entities.AppPreferences
 import com.ammar.platsnprices.data.entities.Region
 import com.ammar.platsnprices.data.preferences.PreferencesKeys
-import com.ammar.platsnprices.ui.screens.sale.*
+import com.ammar.platsnprices.ui.screens.sale.Filters
+import com.ammar.platsnprices.ui.screens.sale.ListMode
+import com.ammar.platsnprices.ui.screens.sale.Sort
+import com.ammar.platsnprices.ui.screens.sale.Type
+import com.ammar.platsnprices.ui.screens.sale.Version
 import com.ammar.platsnprices.utils.TAG
 import com.ammar.platsnprices.utils.valueOfOrNull
 import kotlinx.coroutines.Dispatchers

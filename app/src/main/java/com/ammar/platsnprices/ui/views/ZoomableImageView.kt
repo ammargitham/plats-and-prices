@@ -8,7 +8,6 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.view.View
-import androidx.annotation.Nullable
 import androidx.appcompat.widget.AppCompatImageView
 
 class ZoomableImageView : AppCompatImageView, View.OnTouchListener, GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
@@ -42,7 +41,7 @@ class ZoomableImageView : AppCompatImageView, View.OnTouchListener, GestureDetec
         init(context)
     }
 
-    constructor(context: Context, @Nullable attrs: AttributeSet?) : super(context, attrs) {
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
         init(context)
     }
 

@@ -3,7 +3,6 @@ package com.ammar.platsnprices.data.entities
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.ammar.platsnprices.R
-import com.squareup.moshi.Json
 
 enum class Genre {
     ACTION,

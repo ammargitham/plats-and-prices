@@ -3,7 +3,12 @@ package com.ammar.platsnprices.work
 import android.content.Context
 import android.os.Build
 import androidx.hilt.work.HiltWorker
-import androidx.work.*
+import androidx.work.Constraints
+import androidx.work.CoroutineWorker
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.WorkerParameters
 import com.ammar.platsnprices.data.db.daos.DlcDiscountDao
 import com.ammar.platsnprices.data.db.daos.GameDiscountDao
 import com.ammar.platsnprices.data.db.daos.RecentGameDiscountDao

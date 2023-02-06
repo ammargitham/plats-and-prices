@@ -36,8 +36,13 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeParseException
-import java.util.*
-import kotlin.math.*
+import java.util.Date
+import java.util.Locale
+import kotlin.math.PI
+import kotlin.math.cos
+import kotlin.math.pow
+import kotlin.math.sin
+import kotlin.math.sqrt
 
 val Any.TAG: String
     get() {
@@ -137,9 +142,9 @@ fun LocalDate.toDate(): Date = Date.from(
 )
 
 /**
- * Returns a [StateFlow] that access data associated with the given key.
+ * Returns a [MutableStateFlow] that access data associated with the given key.
  *
- * @param scope The scope used to synchronize the [StateFlow] and [SavedStateHandle]
+ * @param scope The scope used to synchronize the [MutableStateFlow] and [SavedStateHandle]
  * @param key The identifier for the value
  * @param initialValue If no value exists with the given [key], a new one is created
  *  with the given [initialValue].

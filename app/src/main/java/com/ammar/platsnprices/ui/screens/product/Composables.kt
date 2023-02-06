@@ -7,13 +7,51 @@ import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.focusable
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.progressSemantics
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.material.AppBarDefaults
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.Divider
+import androidx.compose.material.LocalContentAlpha
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ProgressIndicatorDefaults
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.material.TextButton
+import androidx.compose.material.primarySurface
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -35,15 +73,45 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.*
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.ExperimentalUnitApi
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.toSize
 import coil.annotation.ExperimentalCoilApi
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
 import coil.decode.VideoFrameDecoder
+import coil.request.ImageRequest
 import com.ammar.platsnprices.R
-import com.ammar.platsnprices.data.entities.*
+import com.ammar.platsnprices.data.entities.EsrbRating
+import com.ammar.platsnprices.data.entities.Genre
+import com.ammar.platsnprices.data.entities.GuideSource
+import com.ammar.platsnprices.data.entities.OpenCriticGame
+import com.ammar.platsnprices.data.entities.Product
+import com.ammar.platsnprices.data.entities.Tier
+import com.ammar.platsnprices.data.entities.Trophy
 import com.ammar.platsnprices.ui.composables.HtmlText
-import com.ammar.platsnprices.ui.theme.*
-import com.ammar.platsnprices.utils.*
+import com.ammar.platsnprices.ui.theme.OpenCriticFair
+import com.ammar.platsnprices.ui.theme.OpenCriticFairStart
+import com.ammar.platsnprices.ui.theme.OpenCriticFairStop
+import com.ammar.platsnprices.ui.theme.OpenCriticMighty
+import com.ammar.platsnprices.ui.theme.OpenCriticMightyStart
+import com.ammar.platsnprices.ui.theme.OpenCriticMightyStop
+import com.ammar.platsnprices.ui.theme.OpenCriticStrong
+import com.ammar.platsnprices.ui.theme.OpenCriticStrongStart
+import com.ammar.platsnprices.ui.theme.OpenCriticStrongStop
+import com.ammar.platsnprices.ui.theme.OpenCriticWeak
+import com.ammar.platsnprices.ui.theme.OpenCriticWeakStart
+import com.ammar.platsnprices.ui.theme.OpenCriticWeakStop
+import com.ammar.platsnprices.ui.theme.PSBlue
+import com.ammar.platsnprices.ui.theme.PSPlus
+import com.ammar.platsnprices.utils.dpToPx
+import com.ammar.platsnprices.utils.format
+import com.ammar.platsnprices.utils.genreStringRes
+import com.ammar.platsnprices.utils.openUrl
+import com.ammar.platsnprices.utils.pxToDp
+import com.ammar.platsnprices.utils.toDate
 import java.text.DateFormat
 import kotlin.math.roundToInt
 
@@ -111,12 +179,11 @@ internal fun HeaderRow(
                 modifier = Modifier
                     .size(imageSize)
                     .clip(RoundedCornerShape(imageCornerRadius)),
-                painter = rememberImagePainter(
-                    data = imgUrl,
-                    builder = {
+                painter = rememberAsyncImagePainter(
+                    ImageRequest.Builder(LocalContext.current).data(data = imgUrl).apply(block = fun ImageRequest.Builder.() {
                         crossfade(true)
                         placeholder(R.drawable.image_placeholder)
-                    }
+                    }).build()
                 ),
                 contentDescription = "Image",
                 contentScale = ContentScale.Crop,
@@ -530,13 +597,12 @@ internal fun ScreenshotsRow(
                 Box {
                     Image(
                         modifier = modifier.clickable(enabled = onVideoClick != null) { onVideoClick?.invoke() },
-                        painter = rememberImagePainter(
-                            data = it,
-                            builder = {
+                        painter = rememberAsyncImagePainter(
+                            ImageRequest.Builder(LocalContext.current).data(data = it).apply(block = fun ImageRequest.Builder.() {
                                 crossfade(true)
                                 placeholder(R.drawable.image_placeholder)
                                 decoderFactory { sourceResult, options, _ -> VideoFrameDecoder(sourceResult.source, options) }
-                            }
+                            }).build()
                         ),
                         contentDescription = stringResource(R.string.video),
                         contentScale = ContentScale.Crop,
@@ -560,12 +626,11 @@ internal fun ScreenshotsRow(
                     modifier = modifier.clickable(enabled = onScreenshotClick != null) {
                         onScreenshotClick?.invoke(index)
                     },
-                    painter = rememberImagePainter(
-                        data = it[index],
-                        builder = {
+                    painter = rememberAsyncImagePainter(
+                        ImageRequest.Builder(LocalContext.current).data(data = it[index]).apply(block = fun ImageRequest.Builder.() {
                             crossfade(true)
                             placeholder(R.drawable.image_placeholder)
-                        }
+                        }).build()
                     ),
                     contentDescription = stringResource(R.string.screenshot),
                     contentScale = ContentScale.Crop,

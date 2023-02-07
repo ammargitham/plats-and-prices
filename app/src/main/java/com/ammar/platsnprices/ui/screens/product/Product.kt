@@ -1,23 +1,15 @@
 package com.ammar.platsnprices.ui.screens.product
 
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.annotation.ExperimentalCoilApi
 import com.ammar.platsnprices.ui.controllers.ToolbarController
 import com.ammar.platsnprices.ui.controllers.ToolbarState
 
-@ExperimentalComposeUiApi
-@ExperimentalAnimationApi
-@ExperimentalUnitApi
-@ExperimentalCoilApi
 @Composable
 fun Product(
     toolbarController: ToolbarController,

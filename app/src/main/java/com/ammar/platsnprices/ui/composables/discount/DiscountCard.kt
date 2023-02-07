@@ -31,7 +31,6 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.ammar.platsnprices.R
@@ -42,7 +41,6 @@ import com.ammar.platsnprices.ui.composables.SimpleChip
 import com.ammar.platsnprices.ui.theme.PlatsNPricesTheme
 import java.time.LocalDateTime
 
-@ExperimentalCoilApi
 @Composable
 fun DiscountCard(
     discount: Discount,
@@ -167,8 +165,8 @@ private val tempGameDiscount = GameDiscount(
     platPricesUrl = "https://platprices.com/en-us/game/4973-war-tech-fighters"
 )
 
-@ExperimentalCoilApi
 @Preview
+@Preview(uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun GameDiscountCardPreview() {
     PlatsNPricesTheme {
@@ -176,17 +174,8 @@ fun GameDiscountCardPreview() {
     }
 }
 
-@ExperimentalCoilApi
-@Preview(uiMode = UI_MODE_NIGHT_YES)
-@Composable
-fun GameDiscountCardPreviewDark() {
-    PlatsNPricesTheme {
-        DiscountCard(tempGameDiscount)
-    }
-}
-
-@ExperimentalCoilApi
 @Preview(widthDp = 320)
+@Preview(widthDp = 320, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun GameDiscountCardSmallPreview() {
     PlatsNPricesTheme {

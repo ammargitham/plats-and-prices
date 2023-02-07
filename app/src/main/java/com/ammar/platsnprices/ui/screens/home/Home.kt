@@ -2,8 +2,6 @@ package com.ammar.platsnprices.ui.screens.home
 
 import android.os.Handler
 import android.os.Looper
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -28,16 +25,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.ammar.platsnprices.R
@@ -54,12 +48,6 @@ import com.ammar.platsnprices.utils.openUrl
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 
-@ExperimentalComposeUiApi
-@ExperimentalUnitApi
-@ExperimentalAnimationApi
-@ExperimentalMaterialApi
-@ExperimentalFoundationApi
-@ExperimentalCoilApi
 @Composable
 fun Home(
     padding: PaddingValues,
@@ -126,8 +114,6 @@ fun Home(
     )
 }
 
-@ExperimentalAnimationApi
-@ExperimentalCoilApi
 @Composable
 fun HomeContent(
     padding: PaddingValues = PaddingValues(0.dp),
@@ -171,7 +157,6 @@ fun HomeContent(
     }
 }
 
-@ExperimentalCoilApi
 @Composable
 private fun RegionRow(
     region: Region?,
@@ -215,8 +200,6 @@ private fun RegionRow(
     }
 }
 
-@ExperimentalAnimationApi
-@ExperimentalCoilApi
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun DefaultPreview() {

@@ -3,17 +3,13 @@ package com.ammar.platsnprices.ui.screens.imagespager
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import coil.annotation.ExperimentalCoilApi
 import com.ammar.platsnprices.ui.controllers.ToolbarController
 import com.ammar.platsnprices.ui.controllers.ToolbarState
 import com.ammar.platsnprices.ui.composables.ImagesPager as ImagesPagerContent
 
-@ExperimentalComposeUiApi
-@ExperimentalCoilApi
 @Composable
 fun ImagesPager(
     toolbarController: ToolbarController,

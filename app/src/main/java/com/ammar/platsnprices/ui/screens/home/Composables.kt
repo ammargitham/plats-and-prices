@@ -1,7 +1,6 @@
 package com.ammar.platsnprices.ui.screens.home
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -53,7 +52,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.ammar.platsnprices.R
@@ -74,8 +72,6 @@ import com.google.accompanist.placeholder.material.placeholder
 import java.time.LocalDateTime
 import kotlin.math.roundToInt
 
-@ExperimentalAnimationApi
-@ExperimentalCoilApi
 @Composable
 fun SalesContent(
     loading: Boolean = false,
@@ -153,8 +149,6 @@ fun SalesContent(
     }
 }
 
-@ExperimentalAnimationApi
-@ExperimentalCoilApi
 @Preview(showBackground = true)
 @Composable
 fun PreviewSales() {
@@ -174,16 +168,12 @@ fun PreviewSales() {
     )
 }
 
-@ExperimentalAnimationApi
-@ExperimentalCoilApi
 @Preview(showBackground = true)
 @Composable
 fun PreviewSalesNoSales() {
     SalesContent()
 }
 
-@ExperimentalAnimationApi
-@ExperimentalCoilApi
 @Composable
 fun Sale(
     size: Dp = 200.dp,
@@ -249,8 +239,6 @@ private fun EndsInText(
     )
 }
 
-@ExperimentalAnimationApi
-@ExperimentalCoilApi
 @Preview(showBackground = true)
 @Composable
 fun PreviewSale() {
@@ -269,8 +257,6 @@ fun PreviewSale() {
 }
 
 
-@ExperimentalCoilApi
-@ExperimentalAnimationApi
 @Composable
 fun RecentDiscountsContent(
     loading: Boolean = false,
@@ -348,8 +334,6 @@ fun RecentDiscountsContent(
     }
 }
 
-@ExperimentalAnimationApi
-@ExperimentalCoilApi
 @Composable
 fun RecentDiscountContent(
     size: Dp = 200.dp,
@@ -415,8 +399,6 @@ fun RecentDiscountContent(
     }
 }
 
-@ExperimentalCoilApi
-@ExperimentalAnimationApi
 @Preview(showBackground = true)
 @Composable
 fun PreviewRecentDiscountsContent() {
@@ -449,8 +431,6 @@ fun PreviewRecentDiscountsContent() {
     }
 }
 
-@ExperimentalCoilApi
-@ExperimentalAnimationApi
 @Preview(showBackground = true)
 @Composable
 fun PreviewRecentDiscountContent() {
@@ -481,8 +461,6 @@ fun PreviewRecentDiscountContent() {
     }
 }
 
-
-@ExperimentalCoilApi
 @Composable
 fun RegionPickerContent(
     selectedRegion: Region? = null,
@@ -556,7 +534,6 @@ private fun SearchField(
     )
 }
 
-@ExperimentalCoilApi
 @Composable
 private fun RegionList(
     items: List<Region>,
@@ -620,7 +597,6 @@ private fun RegionList(
     }
 }
 
-@ExperimentalCoilApi
 @Preview(showBackground = true)
 @Composable
 fun RegionPickerContentPreview() {

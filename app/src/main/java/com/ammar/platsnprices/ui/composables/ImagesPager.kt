@@ -15,16 +15,13 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.view.get
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import coil.annotation.ExperimentalCoilApi
 import com.ammar.platsnprices.ui.screens.product.tempGame
 import com.ammar.platsnprices.ui.theme.PlatsNPricesTheme
 import com.ammar.platsnprices.ui.views.ZoomableImageView
 import com.ammar.platsnprices.ui.views.adapters.ZoomableImageViewHolder
 import com.ammar.platsnprices.ui.views.adapters.ZoomableImagesPagerAdapter
-import com.google.accompanist.pager.ExperimentalPagerApi
 
-@ExperimentalComposeUiApi
-@ExperimentalCoilApi
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun ImagesPager(
     modifier: Modifier = Modifier,
@@ -68,9 +65,7 @@ fun ImagesPager(
     )
 }
 
-@ExperimentalComposeUiApi
-@ExperimentalCoilApi
-@ExperimentalPagerApi
+
 @Composable
 @Preview
 fun ImagesPagerPreview() {

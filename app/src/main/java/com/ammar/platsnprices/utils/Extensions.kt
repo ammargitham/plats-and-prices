@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Observer
 import androidx.lifecycle.SavedStateHandle
 import com.google.android.exoplayer2.upstream.DataSource
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
+import com.google.android.exoplayer2.upstream.DefaultDataSource
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -76,7 +76,7 @@ fun String.trimAll() = this.trim { it <= ' ' }
 fun String.slugify(replacement: String = "-") = Normalizer
     .normalize(this, Normalizer.Form.NFD)
     .replace("[^\\p{ASCII}]".toRegex(), "")
-    .replace("[^a-zA-Z0-9\\s]+".toRegex(), "").trim()
+    .replace("[^a-zA-Z\\d\\s]+".toRegex(), "").trim()
     .replace("\\s+".toRegex(), replacement)
     .lowercase()
 
@@ -102,7 +102,7 @@ fun <T> Context.inflate(@LayoutRes layout: Int): T where T : View = LayoutInflat
     .inflate(layout, null, false) as T
 
 fun Context.getExoPlayerDataSourceFactory(): DataSource.Factory {
-    val dataSourceFactory = DefaultDataSourceFactory(this)
+    val dataSourceFactory = DefaultDataSource.Factory(this)
     val cache = ExoPlayerCache.getInstance(this)
     return CacheDataSource.Factory().apply {
         setCache(cache)

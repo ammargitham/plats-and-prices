@@ -24,7 +24,6 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.ammar.platsnprices.R
@@ -35,7 +34,6 @@ import com.ammar.platsnprices.ui.composables.SimpleChip
 import com.ammar.platsnprices.ui.theme.PlatsNPricesTheme
 import java.time.LocalDateTime
 
-@ExperimentalCoilApi
 @Composable
 fun DiscountTile(
     modifier: Modifier = Modifier,
@@ -149,27 +147,18 @@ private val tempGameDiscount = GameDiscount(
     platPricesUrl = "https://platprices.com/en-us/game/4973-war-tech-fighters"
 )
 
-@ExperimentalCoilApi
 @Composable
 @Preview(widthDp = 150)
+@Preview(widthDp = 150, uiMode = UI_MODE_NIGHT_YES)
 fun GameDiscountTilePreview() {
     PlatsNPricesTheme {
         DiscountTile(discount = tempGameDiscount)
     }
 }
 
-@ExperimentalCoilApi
-@Composable
-@Preview(widthDp = 150, uiMode = UI_MODE_NIGHT_YES)
-fun GameDiscountTilePreviewDark() {
-    PlatsNPricesTheme {
-        DiscountTile(discount = tempGameDiscount)
-    }
-}
-
-@ExperimentalCoilApi
 @Composable
 @Preview(widthDp = 120)
+@Preview(widthDp = 120, uiMode = UI_MODE_NIGHT_YES)
 fun GameDiscountTilePreviewNarrow() {
     PlatsNPricesTheme {
         DiscountTile(discount = tempGameDiscount)

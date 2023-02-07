@@ -11,7 +11,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 
-@ExperimentalMaterialApi
+@OptIn(ExperimentalMaterialApi::class)
 class BottomSheetCallback {
     private var onHide: (() -> Unit)? = null
     private var onExpand: (() -> Unit)? = null
@@ -36,7 +36,7 @@ class BottomSheetCallback {
     }
 }
 
-@ExperimentalMaterialApi
+@OptIn(ExperimentalMaterialApi::class)
 abstract class ModalBottomSheetController(private val sheetState: ModalBottomSheetState) {
     abstract fun setContent(sheetContent: (@Composable (ColumnScope.() -> Unit))?)
 
@@ -51,7 +51,7 @@ abstract class ModalBottomSheetController(private val sheetState: ModalBottomShe
     suspend fun show() = sheetState.show()
 }
 
-@ExperimentalMaterialApi
+@OptIn(ExperimentalMaterialApi::class)
 class DefaultModalBottomSheetController(
     sheetState: ModalBottomSheetState,
     private val bottomSheetCallback: BottomSheetCallback
@@ -71,7 +71,7 @@ class DefaultModalBottomSheetController(
     ) = bottomSheetCallback.setCallbacks(onHide, onExpand, onHalfExpand)
 }
 
-@ExperimentalMaterialApi
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun rememberModalBottomSheetController(
     sheetState: ModalBottomSheetState,

@@ -74,12 +74,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
-import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberAsyncImagePainter
 import coil.decode.VideoFrameDecoder
 import coil.request.ImageRequest
@@ -115,8 +113,6 @@ import com.ammar.platsnprices.utils.toDate
 import java.text.DateFormat
 import kotlin.math.roundToInt
 
-@ExperimentalUnitApi
-@ExperimentalCoilApi
 @Composable
 internal fun HeaderRow(
     headerScrollProgress: Float = 0f,
@@ -574,7 +570,6 @@ fun StoreButtons(
     }
 }
 
-@ExperimentalCoilApi
 @Composable
 internal fun ScreenshotsRow(
     videoUrl: String? = null,

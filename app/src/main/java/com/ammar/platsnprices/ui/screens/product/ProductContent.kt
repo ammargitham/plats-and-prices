@@ -1,7 +1,6 @@
 package com.ammar.platsnprices.ui.screens.product
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
@@ -35,10 +34,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
-import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.ammar.platsnprices.R
@@ -46,12 +43,8 @@ import com.ammar.platsnprices.data.entities.OpenCriticGame
 import com.ammar.platsnprices.data.entities.Product
 import com.ammar.platsnprices.ui.theme.PlatsNPricesTheme
 import com.ammar.platsnprices.utils.dpToPx
-import com.google.accompanist.pager.ExperimentalPagerApi
 import kotlin.math.min
 
-@ExperimentalAnimationApi
-@ExperimentalUnitApi
-@ExperimentalCoilApi
 @Composable
 fun ProductContent(
     loading: Boolean = false,
@@ -140,7 +133,6 @@ fun ProductContent(
     }
 }
 
-@ExperimentalCoilApi
 @Composable
 private fun MainContent(
     modifier: Modifier,
@@ -202,7 +194,6 @@ private fun MainContent(
     }
 }
 
-@ExperimentalCoilApi
 @Composable
 private fun Cover(
     coverArtUrl: String,
@@ -245,28 +236,10 @@ private fun Cover(
     }
 }
 
-@ExperimentalAnimationApi
-@ExperimentalPagerApi
-@ExperimentalUnitApi
-@ExperimentalCoilApi
 @Composable
 @Preview(showBackground = true)
-fun PreviewProductContent() {
-    PlatsNPricesTheme {
-        ProductContent(
-            product = tempGame,
-            openCriticGame = tempOpenCriticGame,
-        )
-    }
-}
-
-@ExperimentalAnimationApi
-@ExperimentalPagerApi
-@ExperimentalUnitApi
-@ExperimentalCoilApi
-@Composable
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
-fun PreviewProductContentDark() {
+fun PreviewProductContent() {
     PlatsNPricesTheme {
         ProductContent(
             product = tempGame,

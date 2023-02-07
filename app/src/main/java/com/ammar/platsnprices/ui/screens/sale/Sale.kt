@@ -2,11 +2,8 @@ package com.ammar.platsnprices.ui.screens.sale
 
 import android.os.Handler
 import android.os.Looper
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -18,12 +15,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.annotation.ExperimentalCoilApi
 import com.ammar.platsnprices.R
 import com.ammar.platsnprices.data.entities.DlcDiscount
 import com.ammar.platsnprices.data.entities.Region
@@ -32,16 +26,8 @@ import com.ammar.platsnprices.ui.controllers.ToolbarController
 import com.ammar.platsnprices.ui.controllers.ToolbarState
 import com.ammar.platsnprices.utils.openUrl
 import com.ammar.platsnprices.utils.pnpDateTimeFormatter
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
-@ExperimentalCoroutinesApi
-@ExperimentalComposeUiApi
-@ExperimentalUnitApi
-@ExperimentalAnimationApi
-@ExperimentalMaterialApi
-@ExperimentalFoundationApi
-@ExperimentalCoilApi
 @Composable
 fun Sale(
     padding: PaddingValues,

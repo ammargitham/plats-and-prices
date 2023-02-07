@@ -2,14 +2,10 @@ package com.ammar.platsnprices.ui.screens.product
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.ExperimentalUnitApi
-import coil.annotation.ExperimentalCoilApi
 import com.ammar.platsnprices.data.entities.OpenCriticGame
 import com.ammar.platsnprices.data.entities.Tier
 import com.ammar.platsnprices.ui.theme.PlatsNPricesTheme
 
-@ExperimentalCoilApi
-@ExperimentalUnitApi
 @Composable
 @Preview(showBackground = true)
 fun HeaderRowPreview() {
@@ -46,7 +42,6 @@ fun OpenCriticRowPreview() {
     }
 }
 
-@ExperimentalCoilApi
 @Composable
 @Preview(showBackground = true)
 fun ScreenshotsRowPreview() {

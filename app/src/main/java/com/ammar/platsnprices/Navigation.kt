@@ -7,19 +7,14 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import coil.annotation.ExperimentalCoilApi
 import com.ammar.platsnprices.ui.controllers.ExtSystemUIController
 import com.ammar.platsnprices.ui.controllers.ModalBottomSheetController
 import com.ammar.platsnprices.ui.controllers.ToolbarController
@@ -28,10 +23,8 @@ import com.ammar.platsnprices.ui.screens.imagespager.ImagesPager
 import com.ammar.platsnprices.ui.screens.product.Product
 import com.ammar.platsnprices.ui.screens.sale.Sale
 import com.ammar.platsnprices.ui.screens.videoplayer.VideoPlayer
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@ExperimentalAnimationApi
-@ExperimentalMaterialApi
+@OptIn(ExperimentalAnimationApi::class)
 sealed class Route(
     val route: String,
     val arguments: List<NamedNavArgument> = emptyList(),
@@ -65,12 +58,6 @@ sealed class Route(
         ExtSystemUIController
     ) -> Unit
 ) {
-    @ExperimentalCoroutinesApi
-    @ExperimentalComposeUiApi
-    @ExperimentalUnitApi
-    @ExperimentalCoilApi
-    @ExperimentalFoundationApi
-    @ExperimentalMaterialApi
     object HomeRoute : Route(
         route = "home",
         content = { padding, _, navController, toolbarController, bottomSheetController, _ ->
@@ -84,12 +71,6 @@ sealed class Route(
         }
     )
 
-    @ExperimentalCoroutinesApi
-    @ExperimentalComposeUiApi
-    @ExperimentalUnitApi
-    @ExperimentalCoilApi
-    @ExperimentalFoundationApi
-    @ExperimentalMaterialApi
     object SaleRoute : Route(
         route = "sale/{saleDbId}?name={name}&img={img}",
         arguments = listOf(
@@ -112,9 +93,6 @@ sealed class Route(
         fun getRoute(saleDbId: Long, name: String? = null, img: String? = null): String = "sale/$saleDbId?name=${name ?: ""}&img=${img ?: ""}"
     }
 
-    @ExperimentalComposeUiApi
-    @ExperimentalCoilApi
-    @ExperimentalUnitApi
     object ProductRoute : Route(
         route = "product/{ppId}?name={name}&img={img}",
         arguments = listOf(
@@ -136,9 +114,6 @@ sealed class Route(
         fun getRoute(ppId: Long, name: String? = null, img: String? = null): String = "product/$ppId?name=${name ?: ""}&img=${img ?: ""}"
     }
 
-    @ExperimentalComposeUiApi
-    @ExperimentalCoilApi
-    @ExperimentalUnitApi
     object ImagesPagerRoute : Route(
         route = "images-pager?urls={urls}&index={index}",
         arguments = listOf(
@@ -156,9 +131,6 @@ sealed class Route(
         fun getRoute(urls: List<String>, index: Int = 0): String = "images-pager?urls=${urls.joinToString(",")}&index=$index"
     }
 
-    @ExperimentalComposeUiApi
-    @ExperimentalCoilApi
-    @ExperimentalUnitApi
     object VideoPlayerRoute : Route(
         route = "video-player?url={url}",
         content = { _, backStackEntry, _, toolbarController, _, extSystemUIController ->
@@ -184,37 +156,14 @@ sealed class Route(
     }
 }
 
-@ExperimentalCoroutinesApi
-@ExperimentalComposeUiApi
-@ExperimentalUnitApi
-@ExperimentalAnimationApi
-@ExperimentalCoilApi
-@ExperimentalMaterialApi
-@ExperimentalFoundationApi
 fun NavController.navigateToSale(saleDbId: Long, name: String? = null, img: String? = null) =
     this.navigate(Route.SaleRoute.getRoute(saleDbId, name, img))
 
-
-@ExperimentalMaterialApi
-@ExperimentalComposeUiApi
-@ExperimentalCoilApi
-@ExperimentalUnitApi
-@ExperimentalAnimationApi
 fun NavController.navigateToProduct(ppId: Long, name: String? = null, img: String? = null) =
     this.navigate(Route.ProductRoute.getRoute(ppId, name, img))
 
-@ExperimentalMaterialApi
-@ExperimentalComposeUiApi
-@ExperimentalCoilApi
-@ExperimentalUnitApi
-@ExperimentalAnimationApi
 fun NavController.navigateToImagesPager(urls: List<String>, index: Int = 0) =
     this.navigate(Route.ImagesPagerRoute.getRoute(urls, index))
 
-@ExperimentalMaterialApi
-@ExperimentalCoilApi
-@ExperimentalAnimationApi
-@ExperimentalUnitApi
-@ExperimentalComposeUiApi
 fun NavController.navigateToVideoPlayer(url: String) =
     this.navigate(Route.VideoPlayerRoute.getRoute(url))

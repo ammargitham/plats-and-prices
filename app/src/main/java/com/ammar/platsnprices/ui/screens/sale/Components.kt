@@ -33,7 +33,6 @@ import com.ammar.platsnprices.R
 import com.ammar.platsnprices.ui.composables.ButtonToggleGroup
 import com.ammar.platsnprices.ui.composables.ButtonToggleOption
 import com.ammar.platsnprices.ui.composables.ClickableChip
-import com.ammar.platsnprices.ui.theme.PlatsNPricesTheme
 
 @Composable
 internal fun OptionsRow(
@@ -285,24 +284,13 @@ internal fun FilterOptions(
 
 @Composable
 @Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 fun PreviewFilterOptions() {
     FilterOptions(
         filters = Filters(
             type = Type.DLC
         )
     )
-}
-
-@Composable
-@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
-fun PreviewFilterOptionsDark() {
-    PlatsNPricesTheme {
-        FilterOptions(
-            filters = Filters(
-                type = Type.DLC
-            )
-        )
-    }
 }
 
 @Composable

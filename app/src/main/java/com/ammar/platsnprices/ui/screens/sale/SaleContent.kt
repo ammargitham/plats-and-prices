@@ -1,7 +1,6 @@
 package com.ammar.platsnprices.ui.screens.sale
 
 import android.content.res.Configuration
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,23 +13,18 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.annotation.ExperimentalCoilApi
 import com.ammar.platsnprices.data.entities.Discount
 import com.ammar.platsnprices.data.entities.GameDiscount
 import com.ammar.platsnprices.ui.composables.discount.DiscountTile
 import com.ammar.platsnprices.ui.theme.PlatsNPricesTheme
 import java.time.LocalDateTime
 
-@ExperimentalMaterialApi
-@ExperimentalFoundationApi
-@ExperimentalCoilApi
 @Composable
 fun SaleContent(
     padding: PaddingValues = PaddingValues(0.dp),
@@ -104,8 +98,6 @@ fun SaleContent(
 //     }
 // }
 
-@ExperimentalCoilApi
-@ExperimentalFoundationApi
 @Composable
 fun SaleContentGrid(
     listMode: ListMode = ListMode.LIST,
@@ -149,9 +141,6 @@ private val previewGameDiscounts = List(5) {
     )
 }
 
-@ExperimentalMaterialApi
-@ExperimentalFoundationApi
-@ExperimentalCoilApi
 @Preview(showSystemUi = true)
 @Preview(showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
@@ -164,8 +153,6 @@ fun PreviewSaleContent() {
     }
 }
 
-@ExperimentalFoundationApi
-@ExperimentalCoilApi
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
@@ -175,8 +162,6 @@ fun PreviewSaleContentList() {
     }
 }
 
-@ExperimentalFoundationApi
-@ExperimentalCoilApi
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable

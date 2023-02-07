@@ -7,7 +7,6 @@ import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
@@ -35,16 +34,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import coil.annotation.ExperimentalCoilApi
 import com.ammar.platsnprices.ui.composables.BackHandler
 import com.ammar.platsnprices.ui.controllers.BottomSheetCallback
 import com.ammar.platsnprices.ui.controllers.ExtSystemUIController
@@ -63,16 +59,9 @@ import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
-@ExperimentalCoroutinesApi
-@ExperimentalComposeUiApi
-@ExperimentalUnitApi
-@ExperimentalAnimationApi
-@ExperimentalMaterialApi
-@ExperimentalCoilApi
-@ExperimentalFoundationApi
+@OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialApi::class)
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private lateinit var composeView: View
@@ -126,8 +115,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@ExperimentalAnimationApi
-@ExperimentalMaterialApi
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MainContent(
     navController: NavController,
@@ -190,7 +178,6 @@ fun MainContent(
     }
 }
 
-@ExperimentalAnimationApi
 @Composable
 private fun MainScaffold(
     title: @Composable () -> Unit,
@@ -252,13 +239,7 @@ private fun MainScaffold(
     )
 }
 
-@ExperimentalCoroutinesApi
-@ExperimentalComposeUiApi
-@ExperimentalUnitApi
-@ExperimentalAnimationApi
-@ExperimentalMaterialApi
-@ExperimentalCoilApi
-@ExperimentalFoundationApi
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun PlatsNPricesNavHost(
     navController: NavHostController,

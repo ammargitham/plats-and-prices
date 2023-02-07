@@ -32,7 +32,7 @@ class SaleViewModel @Inject constructor(
 ) : ViewModel() {
     private val appPreferencesFlow = appPreferencesRepository.appPreferencesFlow
 
-    @ExperimentalCoroutinesApi
+    @OptIn(ExperimentalCoroutinesApi::class)
     val saleWithDiscounts: Flow<Resource<SaleWithDiscounts?>> = savedStateHandle.getStateFlow<Long?>(
         viewModelScope,
         "saleDbId",
@@ -42,7 +42,6 @@ class SaleViewModel @Inject constructor(
         platPricesRepository.getSaleWithDiscounts(saleDbId)
     }
 
-    @ExperimentalCoroutinesApi
     val uiState: Flow<UiState> = combine(
         saleWithDiscounts,
         appPreferencesFlow

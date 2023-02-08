@@ -78,14 +78,11 @@ sealed class Route(
             navArgument("name") { nullable = true },
             navArgument("img") { nullable = true },
         ),
-        content = { padding, backStackEntry, navController, toolbarController, bottomSheetController, _ ->
+        content = { padding, backStackEntry, navController, toolbarController, _, _ ->
             Sale(
-                padding,
-                toolbarController,
-                bottomSheetController,
-                backStackEntry.arguments?.getLong("saleDbId"),
-                backStackEntry.arguments?.getString("name"),
-                backStackEntry.arguments?.getString("img"),
+                padding = padding,
+                toolbarController = toolbarController,
+                name = backStackEntry.arguments?.getString("name"),
                 navigateToProduct = { ppId, name, imgUrl -> navController.navigateToProduct(ppId, name, imgUrl) },
             )
         }

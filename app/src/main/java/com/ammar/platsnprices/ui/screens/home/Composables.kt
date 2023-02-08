@@ -32,7 +32,6 @@ import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -462,46 +461,7 @@ fun PreviewRecentDiscountContent() {
 }
 
 @Composable
-fun RegionPickerContent(
-    selectedRegion: Region? = null,
-    filter: String = "",
-    onRegionSelect: (Region) -> Unit = {},
-    onFilterChange: (String) -> Unit = {},
-) {
-    val context = LocalContext.current
-    var items by remember { mutableStateOf(emptyList<Region>()) }
-
-    LaunchedEffect(filter) {
-        val regex = Regex("(?i).*$filter.*")
-        items = Region.values()
-            .filter {
-                if (filter.isNotBlank()) {
-                    return@filter context.getString(it.labelResId).matches(regex)
-                }
-                true
-            }
-            .sortedBy { context.getString(it.labelResId) }
-    }
-
-    Column(
-        modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        SearchField(
-            modifier = Modifier.fillMaxWidth(),
-            text = filter,
-            onChange = onFilterChange,
-        )
-        RegionList(
-            items = items,
-            selectedRegion = selectedRegion,
-            onRegionSelect = onRegionSelect
-        )
-    }
-}
-
-@Composable
-private fun SearchField(
+internal fun SearchField(
     modifier: Modifier = Modifier,
     text: String = "",
     onChange: (String) -> Unit = {},
@@ -535,7 +495,7 @@ private fun SearchField(
 }
 
 @Composable
-private fun RegionList(
+internal fun RegionList(
     items: List<Region>,
     selectedRegion: Region?,
     onRegionSelect: (Region) -> Unit
@@ -594,15 +554,5 @@ private fun RegionList(
                 }
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun RegionPickerContentPreview() {
-    PlatsNPricesTheme {
-        RegionPickerContent(
-            selectedRegion = Region.AR,
-        )
     }
 }

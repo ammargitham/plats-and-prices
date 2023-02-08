@@ -60,11 +60,10 @@ sealed class Route(
 ) {
     object HomeRoute : Route(
         route = "home",
-        content = { padding, _, navController, toolbarController, bottomSheetController, _ ->
+        content = { padding, _, navController, toolbarController, _, _ ->
             Home(
-                padding,
-                toolbarController,
-                bottomSheetController,
+                padding = padding,
+                toolbarController = toolbarController,
                 navigateToSale = { saleDbId, name, imgUrl -> navController.navigateToSale(saleDbId, name, imgUrl) },
                 navigateToProduct = { ppId, name, imgUrl -> navController.navigateToProduct(ppId, name, imgUrl) },
             )

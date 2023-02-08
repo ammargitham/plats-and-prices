@@ -1,7 +1,5 @@
 package com.ammar.platsnprices.ui.screens.home
 
-import android.os.Handler
-import android.os.Looper
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,13 +14,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,54 +36,26 @@ import com.ammar.platsnprices.data.entities.Region
 import com.ammar.platsnprices.data.entities.Resource
 import com.ammar.platsnprices.data.entities.Sale
 import com.ammar.platsnprices.data.entities.successOr
-import com.ammar.platsnprices.ui.controllers.ModalBottomSheetController
 import com.ammar.platsnprices.ui.controllers.ToolbarController
 import com.ammar.platsnprices.ui.theme.PlatsNPricesTheme
 import com.ammar.platsnprices.utils.getFlag
 import com.ammar.platsnprices.utils.openUrl
-import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 
 @Composable
 fun Home(
     padding: PaddingValues,
     toolbarController: ToolbarController,
-    modalBottomSheetController: ModalBottomSheetController,
     navigateToSale: (saleDbId: Long, name: String, imgUrl: String) -> Unit,
     navigateToProduct: (ppId: Long, name: String, imgUrl: String) -> Unit,
 ) {
     val viewModel: HomeViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
-    var filter by remember { mutableStateOf("") }
-    val coroutineScope = rememberCoroutineScope()
+    var showRegionPickerDialog by remember { mutableStateOf(false) }
     val context = LocalContext.current
 
     LaunchedEffect(Unit) {
         toolbarController.updateToolbar()
-        Handler(Looper.getMainLooper()).postDelayed({
-            modalBottomSheetController.setContent {
-                RegionPickerContent(
-                    selectedRegion = uiState.region,
-                    filter = filter,
-                    onFilterChange = { filter = it },
-                    onRegionSelect = {
-                        coroutineScope.launch {
-                            modalBottomSheetController.hide()
-                            viewModel.updateRegion(it)
-                        }
-                    }
-                )
-            }
-        }, 1000)
-    }
-
-    DisposableEffect(Unit) {
-        Handler(Looper.getMainLooper()).postDelayed({
-            modalBottomSheetController.setCallbacks(
-                onHide = { filter = "" }
-            )
-        }, 1000)
-        onDispose { modalBottomSheetController.setCallbacks() }
     }
 
     HomeContent(
@@ -98,11 +66,7 @@ fun Home(
         recentDiscountsLoading = uiState.recentDiscounts is Resource.Loading,
         recentDiscounts = uiState.recentDiscounts.successOr(emptyList()),
         onSaleClick = { navigateToSale(it.id, it.name, it.imgUrl) },
-        onShowRegionPicker = {
-            coroutineScope.launch {
-                modalBottomSheetController.show()
-            }
-        },
+        onShowRegionPicker = { showRegionPickerDialog = true },
         onRecentDiscountClick = {
             // PlatPrices API does not provide DLC info for any region and game info if the game region is not US
             if (uiState.region != Region.US) {
@@ -112,6 +76,17 @@ fun Home(
             navigateToProduct(it.ppId, it.name, it.imgUrl)
         },
     )
+
+    if (showRegionPickerDialog) {
+        RegionPickerDialog(
+            selectedRegion = uiState.region,
+            onRegionSelect = {
+                viewModel.updateRegion(it)
+                showRegionPickerDialog = false
+            },
+            onDismiss = { showRegionPickerDialog = false }
+        )
+    }
 }
 
 @Composable
